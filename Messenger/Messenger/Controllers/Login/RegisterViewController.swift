@@ -23,7 +23,7 @@ class RegisterViewController: UIViewController {
         return imageview
     }()
     
-    private let firstName : UITextField = {
+    private let firstNameField : UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
@@ -39,7 +39,7 @@ class RegisterViewController: UIViewController {
         return field
     }()
     
-    private let lastName : UITextField = {
+    private let lastNameField : UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
@@ -110,16 +110,17 @@ class RegisterViewController: UIViewController {
         //add subview
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
-        scrollView.addSubview(firstName)
-        scrollView.addSubview(lastName)
+        scrollView.addSubview(firstNameField)
+        scrollView.addSubview(lastNameField)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(registerButton)
         imageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
         
+        registerButton.addTarget(self, action: #selector(registerButtonTap), for: .touchUpInside)
         let gesture =  UITapGestureRecognizer(target: self,
-                                              action:#selector (didTapChangeProfilePic))
+                                              action:#selector(didTapChangeProfilePic))
         gesture.numberOfTapsRequired = 1
         gesture.numberOfTapsRequired = 1
         imageView.addGestureRecognizer(gesture)
@@ -139,17 +140,17 @@ class RegisterViewController: UIViewController {
                                  y: 20,
                                  width: size,
                                  height:size)
-        firstName.frame = CGRect(x:30 ,
+        firstNameField.frame = CGRect(x:30 ,
                                  y: imageView.bottom + 10,
                                  width: scrollView.width - 60,
                                  height:52)
-        lastName.frame = CGRect(x:30 ,
-                                y: firstName.bottom + 10,
+        lastNameField.frame = CGRect(x:30 ,
+                                y: firstNameField.bottom + 10,
                                 width: scrollView.width - 60,
                                 height:52)
         
         emailField.frame = CGRect(x:30 ,
-                                  y: lastName.bottom + 10,
+                                  y: lastNameField.bottom + 10,
                                   width: scrollView.width - 60,
                                   height:52)
         passwordField.frame = CGRect(x:30 ,
@@ -164,7 +165,8 @@ class RegisterViewController: UIViewController {
     }
     
     @objc private func  registerButtonTap() {
-        guard let firstName = firstName.text , let lastName = lastName.text, let email = emailField.text, let password = passwordField.text, !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+        guard let firstName = firstNameField.text , let lastName = lastNameField.text, let email = emailField.text, let password = passwordField.text, !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+            alertUserLoginError()
             return
         }
         

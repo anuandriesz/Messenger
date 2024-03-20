@@ -72,12 +72,14 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style:.done, target: self, action:#selector(didTapRegister))
+        
+        //Adding a target to the button
         loginButton.addTarget(self, action: #selector(loginButtonTap), for: .touchUpInside)
         
         emailField.delegate = self
         passwordField.delegate = self
         
-        //add subview
+        //add subviews
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailField)
@@ -115,16 +117,16 @@ class LoginViewController: UIViewController {
         passwordField.resignFirstResponder()
         
         guard let email = emailField.text, let password = passwordField.text, !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+            alertUserLoginError()
             return
         }
         
         //Firebase Login
-        
     }
     
     func alertUserLoginError() {
         let alert = UIAlertController(title: "Woops",
-                                      message:"Please enter all informations to lgin",
+                                      message:"Please enter all informations to Log In",
                                       preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
