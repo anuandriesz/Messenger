@@ -20,6 +20,12 @@
 				</dict>
 			</array>
 		</dict>
+		<key></key>
+		<false/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to take picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow access to use photo library</string>
 </dict>
 </plist>
